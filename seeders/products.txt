@@ -1,0 +1,28 @@
+{Products:
+{
+    {
+    "productName": "White Basic T-Shirt",
+    "productPrice": "5.99"
+    },
+    {
+    "productName": "Black Leather Jacket",
+    "productPrice": "160.00"
+    },
+    {
+    "productName": "Black Combat Boots",
+    "productPrice": "190.00"
+    },
+    {
+    "productName": "Blue Jean Regular Fit",
+    "productPrice": "15.00"
+    }
+}
+    Categories: {
+        {"categoryName":"Shoes"}
+        {"categoryName":"T-Shirt"}
+        {"categoryName":"Jackets"}
+        {"categoryName":"Jeans"}
+        {"categoryName":"Origin"}
+        {"categoryName":"Special Edition"}
+    }
+}

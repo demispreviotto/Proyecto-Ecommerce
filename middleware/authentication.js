@@ -7,7 +7,7 @@ const authentication = async (req, res, next) => {
     try {
         const token = req.headers.authorization;
         const payload = jwt.verify(token, jwt_secret);
-        const user = await User.fOp.andindByPk(payload.id);
+        const user = await User.findByPk(payload.id);
         const tokenFound = await Token.findOne({
             where: {
                 [Op.and]: [
@@ -27,4 +27,13 @@ const authentication = async (req, res, next) => {
         res.status(500).send({ err, msg: 'Ha habido un problema con el token' })
     }
 }
-module.exports = { authentication }
+
+const isAdmin = async (req, res, next) => {
+    const admins = ['admin', 'superadmin'];
+    if (!admins.includes(req.user.role)) {
+        return res.status(403).send({ msg: 'Acceso denegado' })
+    }
+    next();
+}
+
+module.exports = { authentication, isAdmin }

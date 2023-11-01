@@ -26,3 +26,31 @@
         {"categoryName":"Special Edition"}
     }
 }
+
+{Users:
+{
+    {
+    "name": "Admin One",
+    "email": "adminone@admin.com",
+    "password": "password",
+    "role": "admin"
+    }
+    {
+    "name": "Admin Tow",
+    "email": "admintow@admin.com",
+    "password": "password",
+    "role": "admin"
+    }
+    {
+    "name": "User One",
+    "email": "userone@user.com",
+    "password": "password",
+    "role": "user"
+    }
+    {
+    "name": "User Tow",
+    "email": "usertow@user.com",
+    "password": "password",
+    "role": "user"
+    }
+}}

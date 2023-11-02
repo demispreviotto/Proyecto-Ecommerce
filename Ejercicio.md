@@ -18,18 +18,18 @@ CRUD Categorías
 -Endpoint para actualizar una categoría
 -Endpoint para eliminar una categoría
 El endpoint para ver todas las categorías junto a los productos que tienen
-Crea un endpoint que devuelva una categoría por id
-Filtro para buscar categoría por nombre
+-Crea un endpoint que devuelva una categoría por id
+-Filtro para buscar categoría por nombre
 
 ## Pedidos
 Crea un endpoint para ver los pedidos junto a los productos que tienen 
 Crea un endpoint para crear pedidos
 
 ## Usuarios
-Endpoint para registrar un usuario utilizando bcrypt
-Endpoint para login (utilizando bcrypt +JWT)
+-Endpoint para registrar un usuario utilizando bcrypt
+-Endpoint para login (utilizando bcrypt +JWT)
 Endpoint que nos traiga la información del usuario conectado junto a los pedidos que tiene y los productos que contiene cada pedido
-Endpoint para el logout
+-Endpoint para el logout
 Implementa validación a la hora de crear un usuario para que se rellene todos los campos y si no se hace que devuelva un mensaje
 
 ## Seeders

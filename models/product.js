@@ -5,11 +5,11 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     static associate(models) {
-      // Product.belongsToMany(models.Category, {
-      //   through: 'ProductCategory',
-      //   foreignKey: 'productId',
-      //   as: 'categories',
-      // });
+      Product.belongsToMany(models.Category, {
+        through: models.ProductCategory,
+        // foreignKey: 'productId',
+        // as: 'categories',
+      });
     }
   }
 

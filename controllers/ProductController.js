@@ -1,13 +1,14 @@
-const { Product } = require("../models/index");
+const { Product, Category, ProductCategory } = require("../models/index");
 
 const ProductController = {
     async create(req, res) {
         try {
-            const product = await Product.create(req.body)
-            res.status(201).send({ msg: 'Producto creado con exito', product })
+            const product = await Product.create(req.body);
+            product.addCategory(req.body.CategoryId);
+            res.status(201).send({ msg: 'Producto creado con exito', product });
         } catch (err) {
             console.error(err);
-            res.status(500).send({ msg: "Ha habido un error", err })
+            res.status(500).send({ msg: "Ha habido un error", err });
         }
     },
     async updateByID(req, res) {
@@ -29,6 +30,11 @@ const ProductController = {
             await Product.destroy({
                 where: { id: req.params.id },
             });
+            await ProductCategory.destroy({
+                where: {
+                    ProductId: req.params.id
+                }
+            })
             res.status(200).send({ msg: `Producto ID:${req.params.id}, fue eliminado` })
         } catch (err) {
             console.error(err)
@@ -82,6 +88,17 @@ const ProductController = {
         } catch (err) {
             console.error(err);
             res.status(500).send('Error al ordenar los productos');
+        }
+    },
+    async getAll(req, res) {
+        try {
+            const product = await Product.findAll({
+                include: [{ model: Category, throught: { atributes: [] } }]
+            });
+            res.send(product);
+        } catch (error) {
+            console.error(err);
+            res.status(500).send('Error al traer los productos');
         }
     }
 }

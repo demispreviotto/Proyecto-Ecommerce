@@ -5,8 +5,8 @@ const { authentication, isAdmin } = require('../middleware/authentication')
 
 
 router.post("/create", authentication, isAdmin, ProductController.create);
-router.put("/update/:id", ProductController.updateByID);
-router.delete("/delete/:id", ProductController.deleteByID);
+router.put("/update/:id", authentication, isAdmin, ProductController.updateByID);
+router.delete("/delete/:id", authentication, isAdmin, ProductController.deleteByID);
 router.get("/", ProductController.getAll);
 router.get("/id/:id", ProductController.getByID);
 router.get("/name/:productName", ProductController.getByName);

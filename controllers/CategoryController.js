@@ -1,4 +1,4 @@
-const { Category } = require("../models/index");
+const { Category, Product } = require("../models/index");
 
 const CategoryController = {
     async create(req, res) {
@@ -52,6 +52,17 @@ const CategoryController = {
         } catch (err) {
             console.error(err);
             res.status(404).send({ msg: `No se ha encontrado categoria con ID:${res.params.id}`, err });
+        }
+    },
+    async getAll(req, res) {
+        try {
+            const category = await Category.findAll({
+                include: [{ model: Product, throught: { atributes: [] } }]
+            });
+            res.send(category);
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Error al traer las categorias');
         }
     },
 }

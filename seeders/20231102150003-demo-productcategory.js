@@ -52,6 +52,18 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        ProductId: 5,
+        CategoryId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        ProductId: 5,
+        CategoryId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], {});
   },
 

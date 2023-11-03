@@ -3,34 +3,32 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Products', [
+    await queryInterface.bulkInsert('Orders', [
       {
-        productName: "White Basic T-Shirt",
-        productPrice: "5.99",
+        trakingNumber: 'UserId.OrderId.Date',
+        orderStatus: 'Processing',
+        UserId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        productName: "Black Leather Jacket",
-        productPrice: "160.00",
+        trakingNumber: 'UserId.OrderId.Date',
+        orderStatus: 'Processing',
+        UserId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        productName: "Combat Boots",
-        productPrice: "190.00",
+        trakingNumber: 'UserId.OrderId.Date',
+        orderStatus: 'Processing',
+        UserId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        productName: "Blue Jean Regular Fit",
-        productPrice: "15.00",
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        productName: "White Canvas Sneakers",
-        productPrice: "30.00",
+        trakingNumber: 'UserId.OrderId.Date',
+        orderStatus: 'Processing',
+        UserId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },

@@ -10,7 +10,7 @@ El endpoint de traer productos debe mostrarse junto a la categoría o categoría
 -Filtro para buscar producto por precio
 -Filtro que ordene los productos de mayor a menor precio
 Implementa validación a la hora de crear un producto para que se rellene todos los campos y si no se hace que devuelva un mensaje
-Solo podrás crear, actualizar y eliminar productos si estás autenticado.
+-Solo podrás crear, actualizar y eliminar productos si estás autenticado.
 
 ##  Categorías
 CRUD Categorías

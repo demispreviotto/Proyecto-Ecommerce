@@ -43,12 +43,12 @@ const OrderController = {
     },
     async getByID(req, res) {
         try {
-            const findedOrder = await Order.findByPk(req.params.id);
-            const orderId = findedOrder.dataValues.id;
-            const orderStatus = findedOrder.dataValues.orderStatus;
-            const orderUser = findedOrder.dataValues.UserId;
+            const foundOrder = await Order.findByPk(req.params.id);
+            const orderId = foundOrder.dataValues.id;
+            const orderStatus = foundOrder.dataValues.orderStatus;
+            const orderUser = foundOrder.dataValues.UserId;
             res.status(200).send(`Orden: ${orderId}, Status: ${orderStatus}, Usuario: ${orderUser}`);
-            console.log(findedOrder)
+            console.log(foundOrder)
         } catch (err) {
             console.error(err);
             res.status(404).send({ msg: `No se ha encontrado orden con ID:${res.params.id}`, err });
@@ -58,7 +58,7 @@ const OrderController = {
         try {
             const order = await Order.findAll({
                 include: [User]
-                // include: [{ model: User, throught: { atributes: [] } }]
+                // include: [{ model: User, through: { atributes: [] } }]
             });
             res.send(order);
         } catch (err) {

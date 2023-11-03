@@ -43,11 +43,11 @@ const ProductController = {
     },
     async getByID(req, res) {
         try {
-            const findedProduct = await Product.findByPk(req.params.id);
-            const productName = findedProduct.dataValues.productName;
-            const productPrice = findedProduct.dataValues.productPrice;
+            const foundProduct = await Product.findByPk(req.params.id);
+            const productName = foundProduct.dataValues.productName;
+            const productPrice = foundProduct.dataValues.productPrice;
             res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€`);
-            console.log(findedProduct)
+            console.log(foundProduct)
         } catch (err) {
             console.error(err);
             res.status(404).send({ msg: `No se ha encontrado producto con ID:${res.params.id}`, err });
@@ -55,23 +55,29 @@ const ProductController = {
     },
     async getByName(req, res) {
         try {
-            const findedProduct = await Product.findOne({ where: { productName: req.params.productName } });
-            const productName = findedProduct.dataValues.productName;
-            const productPrice = findedProduct.dataValues.productPrice;
+            const foundProduct = await Product.findOne({
+                where: { productName: req.params.productName },
+                include: [{ model: Category, through: { atributes: [] } }]
+            });
+            const productName = foundProduct.dataValues.productName;
+            const productPrice = foundProduct.dataValues.productPrice;
             res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€`);
-            console.log(findedProduct)
+            console.log(foundProduct)
         } catch (err) {
             console.error(err);
-            res.status(404).send({ msg: `No se ha encontrado producto con ID:${res.params.id}`, err });
+            res.status(404).send({ msg: `No se ha encontrado producto con nombre:${res.params.productName}`, err });
         }
     },
     async getByPrice(req, res) {
         try {
-            const findedProduct = await Product.findOne({ where: { productPriec: req.params.productPrice } });
-            const productName = findedProduct.dataValues.productName;
-            const productPrice = findedProduct.dataValues.productPrice;
+            const foundProduct = await Product.findOne({
+                where: { productPriec: req.params.productPrice },
+                include: [{ model: Category, through: { atributes: [] } }]
+            },);
+            const productName = foundProduct.dataValues.productName;
+            const productPrice = foundProduct.dataValues.productPrice;
             res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€`);
-            console.log(findedProduct)
+            console.log(foundProduct)
         } catch (err) {
             console.error(err);
             res.status(404).send({ msg: `No se ha encontrado producto con ID:${res.params.id}`, err });
@@ -93,7 +99,7 @@ const ProductController = {
     async getAll(req, res) {
         try {
             const product = await Product.findAll({
-                include: [{ model: Category, throught: { atributes: [] } }]
+                include: [{ model: Category, through: { atributes: [] } }]
             });
             res.send(product);
         } catch (err) {

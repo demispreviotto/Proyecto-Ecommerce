@@ -1,10 +1,10 @@
-const { Order, User } = require("../models/index");
+const { Order, User, Product } = require("../models/index");
 
 const OrderController = {
     async create(req, res) {
         try {
             const order = await Order.create(req.body);
-            console.log(order)
+            order.addProduct(req.body.ProductId)
             res.status(201).send({ msg: 'Orden creada con exito', order });
         } catch (err) {
             console.error(err);
@@ -30,11 +30,11 @@ const OrderController = {
             await Order.destroy({
                 where: { id: req.params.id },
             });
-            // await OrderCategory.destroy({
-            //     where: {
-            //         orderId: req.params.id
-            //     }
-            // })
+            await OrderProduct.destroy({
+                where: {
+                    orderId: req.params.id
+                }
+            })
             res.status(200).send({ msg: `Orden ID:${req.params.id}, fue eliminada` })
         } catch (err) {
             console.error(err)
@@ -43,11 +43,15 @@ const OrderController = {
     },
     async getByID(req, res) {
         try {
-            const foundOrder = await Order.findByPk(req.params.id);
+            const foundOrder = await Order.findByPk(req.params.id, {
+                include: [{ model: User, through: { atributes: [] } }],
+                include: [{ model: Product, through: { atributes: [] } }],
+            });
             const orderId = foundOrder.dataValues.id;
             const orderStatus = foundOrder.dataValues.orderStatus;
             const orderUser = foundOrder.dataValues.UserId;
-            res.status(200).send(`Orden: ${orderId}, Status: ${orderStatus}, Usuario: ${orderUser}`);
+            const products = foundOrder.Products.map(product => product.productName);
+            res.status(200).send(`Orden: ${orderId}, Status: ${orderStatus}, Usuario: ${orderUser}, Products: ${products}`);
             console.log(foundOrder)
         } catch (err) {
             console.error(err);
@@ -56,11 +60,11 @@ const OrderController = {
     },
     async getAll(req, res) {
         try {
-            const order = await Order.findAll({
-                include: [User]
-                // include: [{ model: User, through: { atributes: [] } }]
+            const orders = await Order.findAll({
+                include: [{ model: User, through: { atributes: [] } }],
+                include: [{ model: Product, through: { atributes: [] } }],
             });
-            res.send(order);
+            res.send(orders);
         } catch (err) {
             console.error(err);
             res.status(500).send('Error al traer las ordenes');

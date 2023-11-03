@@ -17,12 +17,12 @@ CRUD Categorías
 -Endpoint para crear una categoría
 -Endpoint para actualizar una categoría
 -Endpoint para eliminar una categoría
-El endpoint para ver todas las categorías junto a los productos que tienen
+-El endpoint para ver todas las categorías junto a los productos que tienen
 -Crea un endpoint que devuelva una categoría por id
 -Filtro para buscar categoría por nombre
 
 ## Pedidos
-Crea un endpoint para ver los pedidos junto a los productos que tienen 
+-Crea un endpoint para ver los pedidos junto a los productos que tienen 
 -Crea un endpoint para crear pedidos
 
 ## Usuarios
@@ -38,7 +38,7 @@ Implementa validación a la hora de crear un usuario para que se rellene todos l
 
 # Extra		
 Implementación de roles:
-Crear un rol Admin y que solo los usuarios con ese rol puedan crear, actualizar y eliminar productos.
+-Crear un rol Admin y que solo los usuarios con ese rol puedan crear, actualizar y eliminar productos.
 Investiga que es el middleware multer e impleméntalo para poder adjuntar imágenes al crear o actualizar productos.
 Reviews
 CRUD reviews

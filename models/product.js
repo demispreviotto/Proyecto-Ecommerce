@@ -9,7 +9,12 @@ module.exports = (sequelize, DataTypes) => {
         through: models.ProductCategory,
         // foreignKey: 'productId',
         // as: 'categories',
-      });
+      }
+      );
+      Product.belongsToMany(models.Order, {
+        through: models.OrdersProducts,
+      }
+      );
     }
   }
 

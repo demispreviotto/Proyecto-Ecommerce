@@ -4,7 +4,7 @@ CRUD productos
 -Endpoint para crear un producto
 -Endpoint para actualizar un producto
 -Endpoint para eliminar un producto
-El endpoint de traer productos debe mostrarse junto a la categoría o categorías que pertenece
+-El endpoint de traer productos debe mostrarse junto a la categoría o categorías que pertenece
 -Endpoint que traiga un producto por su id
 -Filtro para buscar producto por nombre
 -Filtro para buscar producto por precio

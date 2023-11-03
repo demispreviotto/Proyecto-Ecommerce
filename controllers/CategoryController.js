@@ -38,8 +38,11 @@ const CategoryController = {
     },
     async getByID(req, res) {
         try {
-            const foundCategory = await Category.findByPk(req.params.id);
-            res.status(200).send(`ID: ${req.params.id} Categoria: ${foundCategory.dataValues.categoryName}`);
+            const foundCategory = await Category.findByPk(req.params.id, {
+                include: [{ model: Product, through: { atributes: [] } }]
+            });
+            const products = foundCategory.Products.map(product => product.productName);
+            res.status(200).send(`ID: ${req.params.id} Categoria: ${foundCategory.dataValues.categoryName}, Products: ${products}`);
         } catch (err) {
             console.error(err);
             res.status(404).send({ msg: `No se ha encontrado categoryo con ID:${res.params.id}`, err });
@@ -47,8 +50,12 @@ const CategoryController = {
     },
     async getByName(req, res) {
         try {
-            const foundCategory = await Category.findOne({ where: { categoryName: req.params.categoryName } });
-            res.status(200).send(`Categoria: ${foundCategory.dataValues.categoryName}, ID: ${foundCategory.dataValues.id}`);
+            const foundCategory = await Category.findOne({
+                where: { categoryName: req.params.categoryName },
+                include: [{ model: Product, through: { atributes: [] } }]
+            });
+            const products = foundCategory.Products.map(product => product.productName);
+            res.status(200).send(`Categoria: ${foundCategory.dataValues.categoryName}, ID: ${foundCategory.dataValues.id}, Products: ${products}`);
         } catch (err) {
             console.error(err);
             res.status(404).send({ msg: `No se ha encontrado categoria con ID:${res.params.id}`, err });

@@ -43,10 +43,13 @@ const ProductController = {
     },
     async getByID(req, res) {
         try {
-            const foundProduct = await Product.findByPk(req.params.id);
+            const foundProduct = await Product.findByPk(req.params.id, {
+                include: [{ model: Category, through: { atributes: [] } }]
+            });
             const productName = foundProduct.dataValues.productName;
             const productPrice = foundProduct.dataValues.productPrice;
-            res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€`);
+            const categories = foundProduct.Categories.map(category => category.categoryName);
+            res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€, Categoria: ${categories}`);
             console.log(foundProduct)
         } catch (err) {
             console.error(err);
@@ -61,7 +64,8 @@ const ProductController = {
             });
             const productName = foundProduct.dataValues.productName;
             const productPrice = foundProduct.dataValues.productPrice;
-            res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€`);
+            const categories = foundProduct.Categories.map(category => category.categoryName);
+            res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€, Categoria: ${categories}`);
             console.log(foundProduct)
         } catch (err) {
             console.error(err);
@@ -76,7 +80,8 @@ const ProductController = {
             },);
             const productName = foundProduct.dataValues.productName;
             const productPrice = foundProduct.dataValues.productPrice;
-            res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€`);
+            const categories = foundProduct.Categories.map(category => category.categoryName);
+            res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€, Category: ${categories}`);
             console.log(foundProduct)
         } catch (err) {
             console.error(err);

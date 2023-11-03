@@ -23,7 +23,7 @@ El endpoint para ver todas las categorías junto a los productos que tienen
 
 ## Pedidos
 Crea un endpoint para ver los pedidos junto a los productos que tienen 
-Crea un endpoint para crear pedidos
+-Crea un endpoint para crear pedidos
 
 ## Usuarios
 -Endpoint para registrar un usuario utilizando bcrypt
@@ -33,7 +33,7 @@ Endpoint que nos traiga la información del usuario conectado junto a los pedido
 Implementa validación a la hora de crear un usuario para que se rellene todos los campos y si no se hace que devuelva un mensaje
 
 ## Seeders
-Crea 5 productos con un seeder
+-Crea 5 productos con un seeder
 
 
 # Extra		

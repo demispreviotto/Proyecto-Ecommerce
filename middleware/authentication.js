@@ -35,5 +35,12 @@ const isAdmin = async (req, res, next) => {
     }
     next();
 }
+const isSuperAdmin = async (req, res, next) => {
+    const admins = 'superadmin';
+    if (!admins.includes(req.user.role)) {
+        return res.status(403).send({ msg: 'Acceso denegado' })
+    }
+    next();
+}
 
-module.exports = { authentication, isAdmin }
+module.exports = { authentication, isAdmin, isSuperAdmin }

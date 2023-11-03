@@ -81,7 +81,7 @@ const ProductController = {
         try {
             const orderedProducts = await Product.findAll({
                 order: [
-                    [productPrice, 'ASC']
+                    ['productPrice', 'ASC']
                 ]
             });
             res.status(200).json(orderedProducts);
@@ -96,7 +96,7 @@ const ProductController = {
                 include: [{ model: Category, throught: { atributes: [] } }]
             });
             res.send(product);
-        } catch (error) {
+        } catch (err) {
             console.error(err);
             res.status(500).send('Error al traer los productos');
         }

@@ -52,7 +52,6 @@ const OrderController = {
             const orderUser = foundOrder.dataValues.UserId;
             const products = foundOrder.Products.map(product => product.productName);
             res.status(200).send(`Orden: ${orderId}, Status: ${orderStatus}, Usuario: ${orderUser}, Products: ${products}`);
-            console.log(foundOrder)
         } catch (err) {
             console.error(err);
             res.status(404).send({ msg: `No se ha encontrado orden con ID:${res.params.id}`, err });

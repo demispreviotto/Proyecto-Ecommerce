@@ -1,4 +1,4 @@
-const { User, Token, Sequelize } = require("../models/index");
+const { User, Token, Sequelize, Order, Product, OrdersProducts } = require("../models/index");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { jwt_secret } = require('../config/config.json')['development'];
@@ -69,6 +69,27 @@ const UserController = {
         } catch (err) {
             console.error(err);
             res.status(500).send({ msg: 'Hubo un problema al tratar de desconectarte' })
+        }
+    },
+    async userOrders(req, res) {
+        try {
+            const foundUser = await User.findByPk(req.params.id, {
+                include: [{
+                    model: Order,
+                    include: [{
+                        model: Product,
+                        through: {
+                            model: OrdersProducts,
+                            attributes: [],
+                        }
+                    },],
+                }],
+            })
+            if (!foundUser) return res.status(404).send(`No se ha encontrado usuario con ID: ${res.params.id}`);
+            res.send(foundUser)
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({ msg: `Error al obtener las órdenes y productos`, err })
         }
     }
 }

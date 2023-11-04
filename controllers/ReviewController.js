@@ -1,4 +1,4 @@
-const { Review, User } = require("../models/index");
+const { Review, User, Product, Category } = require("../models/index");
 
 const ReviewController = {
     async create(req, res) {
@@ -26,10 +26,18 @@ const ReviewController = {
 
             const reviews = await Review.findAll({
                 where: { ProductId: productId },
-                include: {
+                include: [{
                     model: User,
                     attribures: ['id', 'name', 'email'],
+                }, {
+                    model: Product,
+                    attribures: ['id', 'productName'],
+                    include: {
+                        model: Category,
+                        attributes: ['id', 'categoryName']
+                    }
                 },
+                ],
             });
             res.status(200).send(reviews)
         } catch (err) {

@@ -9,7 +9,7 @@ CRUD productos
 -Filtro para buscar producto por nombre
 -Filtro para buscar producto por precio
 -Filtro que ordene los productos de mayor a menor precio
-Implementa validación a la hora de crear un producto para que se rellene todos los campos y si no se hace que devuelva un mensaje
+-Implementa validación a la hora de crear un producto para que se rellene todos los campos y si no se hace que devuelva un mensaje
 -Solo podrás crear, actualizar y eliminar productos si estás autenticado.
 
 ##  Categorías
@@ -30,7 +30,7 @@ CRUD Categorías
 -Endpoint para login (utilizando bcrypt +JWT)
 -Endpoint que nos traiga la información del usuario conectado junto a los pedidos que tiene y los productos que contiene cada pedido
 -Endpoint para el logout
-Implementa validación a la hora de crear un usuario para que se rellene todos los campos y si no se hace que devuelva un mensaje
+-Implementa validación a la hora de crear un usuario para que se rellene todos los campos y si no se hace que devuelva un mensaje
 
 ## Seeders
 -Crea 5 productos con un seeder

@@ -7,14 +7,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Product.belongsToMany(models.Category, {
         through: models.ProductCategory,
-        // foreignKey: 'productId',
+        // foreignKey: 'ProductId',
         // as: 'categories',
-      }
-      );
+      });
       Product.belongsToMany(models.Order, {
         through: models.OrdersProducts,
-      }
-      );
+      });
+      Product.hasMany(models.Review)
     }
   }
 

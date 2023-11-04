@@ -7,7 +7,10 @@ const { Op } = Sequelize;
 const UserController = {
     async create(req, res) {
         req.body.role = "user";
-        const password = bcrypt.hashSync(req.body.password, 10)
+        const { name, email, password } = req.body;
+        if (!name || !email || !password) return res.status(400).send({ msg: "Por favor, complete todos los campos obligatorios." });
+
+        password = bcrypt.hashSync(req.body.password, 10)
         try {
             const user = await User.create({ ...req.body, password })
             res.status(201).send({ msg: 'Usuario creado con exito', user })
@@ -18,10 +21,10 @@ const UserController = {
     },
     async updateByID(req, res) {
         try {
-            const updatedUser = await User.update(req.body, {
-                where: { id: req.params.id }
-            });
-            updatedUser[0] === 1 ?
+            const userId = req.user.id;
+            if (!userId) return res.status(400).send({ msg: 'Primero debe registrarse como usuario' })
+            const userToUpdate = await User.update(req.body, { where: { id: userId } });
+            userToUpdate[0] === 1 ?
                 res.status(200).send({ msg: `Usuario ${req.body.name} actualizado` })
                 :
                 res.status(404).send({ msg: `Usuario no encontrado` });
@@ -74,6 +77,7 @@ const UserController = {
     async userOrders(req, res) {
         try {
             const userId = req.user.id;
+            if (!userId) return res.status(400).send({ msg: "Primero debe registrarse como usuario" })
             const foundUser = await User.findByPk(userId, {
                 include: [{
                     model: Order,

@@ -2,6 +2,8 @@ const { Product, Category, ProductCategory } = require("../models/index");
 
 const ProductController = {
     async create(req, res) {
+        const { productName, productPrice } = req.body;
+        if (!productName || !productPrice) return res.status(400).send({ msg: "Por favor, complete todos los campos obligatorios." });
         try {
             const product = await Product.create(req.body);
             product.addCategory(req.body.CategoryId);

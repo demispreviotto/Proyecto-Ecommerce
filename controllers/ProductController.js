@@ -1,4 +1,4 @@
-const { Product, Category, ProductCategory } = require("../models/index");
+const { Product, Category, ProductCategory, Review, User } = require("../models/index");
 
 const ProductController = {
     async create(req, res) {
@@ -45,30 +45,86 @@ const ProductController = {
     },
     async getByID(req, res) {
         try {
-            const foundProduct = await Product.findByPk(req.params.id, {
-                include: [{ model: Category, through: { atributes: [] } }]
+            const productId = req.params.productId;
+
+            const foundProduct = await Product.findByPk(productId, {
+                include: [
+                    { model: Category, through: { atributes: [] } },
+                    {
+                        model: Review,
+                        include: {
+                            model: User, attributes: ['name', 'email'],
+                        }
+                    },
+                ]
             });
+
+            if (!foundProduct) {
+                return res.status(404).send({ msg: `No se ha encontrado producto con ID: ${productId}` });
+            }
+
             const productName = foundProduct.dataValues.productName;
             const productPrice = foundProduct.dataValues.productPrice;
             const categories = foundProduct.Categories.map(category => category.categoryName);
-            res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€, Categoria: ${categories}`);
+            const reviews = foundProduct.Reviews.map(review => ({
+                review: review.review,
+                user: {
+                    name: review.User.name,
+                    email: review.User.email,
+                }
+            }))
+
+            const productInfo = {
+                productName,
+                productPrice,
+                categories,
+                reviews,
+            };
+
+            // res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€, Categoria: ${categories}`);
+            res.status(200).send(productInfo);
             console.log(foundProduct)
         } catch (err) {
             console.error(err);
-            res.status(404).send({ msg: `No se ha encontrado producto con ID:${res.params.id}`, err });
+            res.status(500).send({ msg: `Parece que hubo un error`, err });
         }
     },
     async getByName(req, res) {
         try {
             const foundProduct = await Product.findOne({
                 where: { productName: req.params.productName },
-                include: [{ model: Category, through: { atributes: [] } }]
+                include: [{ model: Category, through: { atributes: [] } }, {
+                    model: Review,
+                    include: {
+                        model: User, attributes: ['name', 'email'],
+                    }
+                },]
             });
+
+            if (!foundProduct) {
+                return res.status(404).send({ msg: `No se ha encontrado producto con ID: ${productId}` });
+            }
+
             const productName = foundProduct.dataValues.productName;
             const productPrice = foundProduct.dataValues.productPrice;
             const categories = foundProduct.Categories.map(category => category.categoryName);
-            res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€, Categoria: ${categories}`);
-            console.log(foundProduct)
+            const reviews = foundProduct.Reviews.map(review => ({
+                review: review.review,
+                user: {
+                    name: review.User.name,
+                    email: review.User.email,
+                }
+            }))
+
+            const productInfo = {
+                productName,
+                productPrice,
+                categories,
+                reviews,
+            };
+
+            // res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€, Categoria: ${categories}`);
+            res.status(200).send(productInfo)
         } catch (err) {
             console.error(err);
             res.status(404).send({ msg: `No se ha encontrado producto con nombre:${res.params.productName}`, err });
@@ -78,13 +134,43 @@ const ProductController = {
         try {
             const foundProduct = await Product.findOne({
                 where: { productPriec: req.params.productPrice },
-                include: [{ model: Category, through: { atributes: [] } }]
+                include: [
+                    {
+                        model: Category, through: { atributes: [] }
+                    }, {
+                        model: Review,
+                        include: {
+                            model: User, attributes: ['name', 'email'],
+                        }
+                    },
+                ],
             },);
+
+            if (!foundProduct) {
+                return res.status(404).send({ msg: `No se ha encontrado producto con ID: ${productId}` });
+            }
+
             const productName = foundProduct.dataValues.productName;
             const productPrice = foundProduct.dataValues.productPrice;
             const categories = foundProduct.Categories.map(category => category.categoryName);
-            res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€, Category: ${categories}`);
-            console.log(foundProduct)
+            const reviews = foundProduct.Reviews.map(review => ({
+                review: review.review,
+                user: {
+                    name: review.User.name,
+                    email: review.User.email,
+                }
+            }))
+
+            const productInfo = {
+                productName,
+                productPrice,
+                categories,
+                reviews,
+            };
+
+
+            // res.status(200).send(`Producto: ${productName}, Precio: ${productPrice}€, Category: ${categories}`);
+            res.status(200).send(productInfo)
         } catch (err) {
             console.error(err);
             res.status(404).send({ msg: `No se ha encontrado producto con ID:${res.params.id}`, err });

@@ -43,7 +43,7 @@ Investiga que es el middleware multer e impleméntalo para poder adjuntar imáge
 -Reviews
 CRUD reviews
 -El endpoint de traer reviews debe mostrarlas junto al usuario que hizo esa review
-Actualizar el endpoint de traer todos productos y que ahora muestre los productos junto a sus categorías y sus reviews
+-Actualizar el endpoint de traer todos productos y que ahora muestre los productos junto a sus categorías y sus reviews
 Actualizar el endpoint de traer producto por id y que ahora muestre los productos junto a sus categorías y sus reviews
 
 

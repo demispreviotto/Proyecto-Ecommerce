@@ -73,7 +73,8 @@ const UserController = {
     },
     async userOrders(req, res) {
         try {
-            const foundUser = await User.findByPk(req.params.id, {
+            const userId = req.user.id;
+            const foundUser = await User.findByPk(userId, {
                 include: [{
                     model: Order,
                     include: [{

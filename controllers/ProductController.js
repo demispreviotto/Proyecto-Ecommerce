@@ -147,7 +147,7 @@ const ProductController = {
             },);
 
             if (!foundProduct) {
-                return res.status(404).send({ msg: `No se ha encontrado producto con ID: ${productId}` });
+                return res.status(404).send({ msg: `No se ha encontrado producto con Price: ${req.params.productPrice}` });
             }
 
             const productName = foundProduct.dataValues.productName;

@@ -44,6 +44,32 @@ const ReviewController = {
             console.error(err);
             res.status(500).send({ msg: "Ha habido un error", err });
         }
+    },
+    async update(req, res) {
+        try {
+            const updatedReview = await Review.update(req.body, {
+                where: req.params.id
+            })
+            updatedReview[0] === 1 ?
+                res.status(200).send({ msg: `Review ID:${req.params.id} actualizado correctamente` })
+                :
+                res.status(404).send({ msg: `No se a encontrado review con ID: ${req.params.id}` });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({ msg: `Ha habido un error`, err })
+        }
+    },
+    async delete(req, res) {
+        try {
+            await Review.destroy({
+                where: { id: req.params.id }
+            })
+            res.status(200).send({ msg: `Review ID:${req.params.id}, fue eliminado` })
+        } catch (err) {
+            console.error(err)
+            res.status(404).send(err)
+        }
     }
 }
+
 module.exports = ReviewController;

@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Review.init({
-    review: DataTypes.STRING,
+    review: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: { notNull: { msg: "Review no puede estar vacio" } }
+    },
     UserId: DataTypes.INTEGER,
     ProductId: DataTypes.INTEGER
   }, {

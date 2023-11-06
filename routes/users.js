@@ -8,6 +8,7 @@ router.put("/update", authentication, UserController.updateByID);
 router.delete("/delete/:id", authentication, isAdmin, UserController.deleteByID);
 router.post("/login", UserController.login);
 router.delete("/logout", authentication, UserController.logout);
-router.get('/orders', authentication, UserController.userOrders)
+router.get('/orders', authentication, UserController.userOrders);
+router.get('/confirm/:emailToken', UserController.confirm)
 
 module.exports = router;

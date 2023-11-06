@@ -5,20 +5,45 @@ const { jwt_secret } = require('../config/config.json')['development'];
 const { Op } = Sequelize;
 
 const UserController = {
-    async create(req, res) {
-        req.body.role = "user";
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) return res.status(400).send({ msg: "Por favor, complete todos los campos obligatorios." });
-
-        password = bcrypt.hashSync(req.body.password, 10)
+    async create(req, res, next) {
         try {
-            const user = await User.create({ ...req.body, password })
+            const hash = bcrypt.hashSync(req.body.password, 10)
+            const user = await User.create({
+                ...req.body,
+                password: hash,
+                confirmed: false,
+                role: 'user',
+            });
+            const emailToken = jwt.sign({ email: req.body.email }, jwt_secret, { expiresIn: '48h' })
+            const url = 'http://localhost:8080/users/confirm/' + emailToken
+            await transporter.sendMail({
+                to: req.body.email,
+                subject: "Confirme su registro",
+                html: `<h3>Bienvenido, estás a un paso de registrarte </h3>
+                <a href="${url}"> Click para confirmar tu registro</a>`,
+            });
             res.status(201).send({ msg: 'Usuario creado con exito', user })
         } catch (err) {
             console.error(err);
-            res.status(500).send({ msg: "Ha habido un error", err })
+            err.origin = 'User';
+            next(err)
         }
     },
+    async confirm(req, res) {
+        try {
+            const token = req.params.emailToken
+            const payload = jwt.verify(token, jwt_secret)
+            await User.update({ confirmed: true }, {
+                where: {
+                    email: payload.email
+                }
+            })
+            res.status(201).send("Usuario confirmado con éxito");
+        } catch (err) {
+            console.error(err)
+        }
+    },
+
     async updateByID(req, res) {
         try {
             const userId = req.user.id;
@@ -30,7 +55,7 @@ const UserController = {
                 res.status(404).send({ msg: `Usuario no encontrado` });
         } catch (err) {
             console.error(err);
-            res.status(500).send({ msg: "Ha habido un error", err })
+            next(err)
         }
     },
     async deleteByID(req, res) {
@@ -48,6 +73,7 @@ const UserController = {
         try {
             const user = await User.findOne({ where: { email: req.body.email } })
             if (!user) return res.status(400).send({ msg: 'Usuario o contrasena incorrectos' })
+            if (!user.confirmed) { return res.status(400).send({ msg: 'Debes confirmar tu correo' }) }
             const isMatch = bcrypt.compareSync(req.body.password, user.password);
             if (!isMatch) return res.status(400).send({ msg: 'Usuario o contraseña incorrecto' });
             const token = jwt.sign({ id: user.id }, jwt_secret)

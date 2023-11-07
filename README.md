@@ -1,9 +1,12 @@
-# E-commerce Backend Project
+# E-commerce Backend Project 
 
-## Introduction
+## 🌱 Introduction 
 In this backend project, we will combine knowledge of Node.js, Express, MySQL, and Sequelize to create a RESTful API. You will be required to present and defend a diagram that explains the relationships between tables. The project involves building an e-commerce online store.
 
-## Description
+## 🔧 Technologies 
+MySQL || Sequelize || Node || Express  || Postman
+
+## 📝 Description
 RESTful API that can perform the following tasks:
 
 - User registration using Bcrypt.
@@ -13,10 +16,7 @@ RESTful API that can perform the following tasks:
 - Utilize seeders for initial data population.
 - MVC
 
-## Technologies
-MySQL || Sequelize || Node || Express || Postman
-
-### Endpoints
+### ⭐ Endpoints
 **Products**
 - CRUD operations for products.
 - Create a product endpoint.
@@ -57,7 +57,7 @@ MySQL || Sequelize || Node || Express || Postman
 **Middleware**
 implements middleware functions to enhance security and error handling with authentication, isAdmin, and isSuperAdmin ensuring secure user access control and error handling with handleValidationError and typeError managing validation and type errors for a seamless user experience.
 
-### Extras
+### 🚀 Extras
 **Role Implementation**
 - Create an Admin role, and only users with this role can create, update, and delete products.
 
@@ -67,10 +67,15 @@ implements middleware functions to enhance security and error handling with auth
 - Update the endpoint to fetch all products to also display products along with their categories and reviews.
 - Update the endpoint to fetch a product by ID to also display products along with their categories and reviews.
 
-## Conclusion
+## ↪️ Conclusion
 This project will help you build a robust e-commerce backend system that incorporates authentication, relationships between entities, and additional features like user roles and product reviews. It provides valuable experience in using Node.js, Express, and Sequelize for creating a functional and feature-rich API.
 
 ![Screenshot 2023-11-07 152127](https://github.com/demispreviotto/Proyecto-Ecommerce/assets/99538600/2e2b5415-0fe4-43fd-9304-10598161ed37)
 ![Screenshot 2023-11-07 152017](https://github.com/demispreviotto/Proyecto-Ecommerce/assets/99538600/a4398174-d218-4d87-8e08-57792381d1c6)
 ![Screenshot 2023-11-07 151933](https://github.com/demispreviotto/Proyecto-Ecommerce/assets/99538600/d28c6d54-97c0-4a50-b514-68b3ec61c7a9)
 
+## 📩 Contact
+
+<a href="https://www.linkedin.com/in/demispreviotto/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+
+Or if you want to send me an email: **demispreviotto@gmail.com**
